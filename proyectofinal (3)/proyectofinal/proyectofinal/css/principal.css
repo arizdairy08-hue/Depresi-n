@@ -1,0 +1,228 @@
+/* principal.css - estilos para principal.html */
+
+/* Reset y tipografías */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body { height: 100%; }
+body {
+  font-family: "Poppins", sans-serif;
+  background: #213a30; /* verde oscuro de fondo */
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.4;
+}
+
+/* Encabezado */
+.encabezado {
+  background: linear-gradient(180deg, rgba(226, 230, 225, 0.06), rgba(0,0,0,0.04));
+  padding: 40px 20px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.enc-inner h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 2.4rem;
+  color: #e1e8c1; /* beige claro */
+  letter-spacing: 0.6px;
+}
+.enc-inner p {
+  margin-top: 8px;
+  color: #cfcfcf;
+  font-size: 1rem;
+}
+
+/* Contenedor principal */
+.wrap {
+  position: relative;
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 24px 60px;
+}
+
+/* imágenes laterales diagonales */
+.side {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 22%;
+  opacity: 0.25;
+  background-size: cover;
+  background-position: center;
+  transform-origin: center;
+  z-index: 0;
+}
+.side-left {
+  left: -6%;
+  transform: rotate(-6deg) translateX(-4%);
+  background-image: url('images/bg-left.jpg');
+}
+.side-right {
+  right: -6%;
+  transform: rotate(6deg) translateX(4%);
+  background-image: url('images/bg-right.jpg');
+}
+
+/* sección de tarjetas */
+.cards-section {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.section-title {
+  font-family: "Playfair Display", serif;
+  font-size: 2rem;
+  color: #E8DCC1;
+  margin-bottom: 6px;
+}
+.section-sub {
+  color: #cfcfcf;
+  margin-bottom: 22px;
+}
+
+/* Grid 3x2 */
+.grid-3x2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+  align-items: stretch;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+/* Estilo base de tarjeta (forma tipo "cuadro redondeado") */
+.card {
+  display: block;
+  padding: 28px 22px;
+  border-radius: 20px;
+  text-decoration: none;
+  color: inherit;
+  min-height: 210px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow:
+    0 18px 30px rgba(0,0,0,0.45),  /* sombra profunda */
+    inset 0 -8px 18px rgba(0,0,0,0.15);
+}
+
+/* sombra larga tipo "long-shadow" con pseudo-elemento */
+.card::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 18px;
+  width: calc(100% - 36px);
+  height: calc(100% - 36px);
+  border-radius: 16px;
+  box-shadow: 18px 18px 0 rgba(0,0,0,0.06);
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+/* Hover */
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow:
+    0 28px 40px rgba(0,0,0,0.55),
+    inset 0 -6px 18px rgba(0,0,0,0.12);
+}
+
+/* Icono grande */
+.card-icon {
+  font-size: 2.8rem;
+  margin-bottom: 12px;
+  display: inline-block;
+}
+
+/* Título dentro tarjeta */
+.card h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+/* texto pequeño */
+.card p {
+  color: rgba(255,255,255,0.86);
+  font-size: 0.95rem;
+  line-height: 1.3;
+}
+
+/* Tarjeta con imagen (4ª) */
+.card.foto {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.card.foto .card-thumb {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+.card.foto img {
+  display: block;
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+/* Variaciones de color (personalízalas con tu paleta) */
+.card.verde {
+  background: linear-gradient(145deg, #4f7257, #3a5d46);
+}
+.card.marron {
+  background: linear-gradient(145deg,#6b4a36,#503828);
+}
+.card.cafe {
+  background: linear-gradient(145deg,#8a5e49,#6a3f2d);
+}
+.card.oscuro {
+  background: linear-gradient(145deg,#3b2a20,#2a1c15);
+}
+.card.beige {
+  background: linear-gradient(145deg,#d9c3a2,#bfa07b);
+  color: #2b2b25;
+}
+.card.verde .card-icon,
+.card.marron .card-icon,
+.card.cafe .card-icon,
+.card.oscuro .card-icon {
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.25));
+}
+
+/* Footer volver */
+.footer {
+  text-align: center;
+  margin-top: 32px;
+  padding: 28px 0 80px;
+}
+.volver {
+  display: inline-block;
+  background: rgba(255,255,255,0.08);
+  color: #f0ead6;
+  padding: 10px 20px;
+  border-radius: 24px;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s;
+}
+.volver:hover {
+  background: rgba(255,255,255,0.12);
+  transform: translateY(-4px);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .grid-3x2 { grid-template-columns: repeat(2, 1fr); }
+  .side { display: none; }
+}
+@media (max-width: 520px) {
+  .grid-3x2 { grid-template-columns: 1fr; gap: 18px; }
+  .enc-inner h1 { font-size: 1.6rem; }
+  .card { min-height: 170px; padding: 18px; border-radius: 14px; }
+}

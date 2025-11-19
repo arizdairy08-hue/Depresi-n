@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renacer - Generador de Tarjetas</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #1c1e21;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+        }
+        #new-card-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
+        }
+        #new-card-btn:hover {
+            background-color: #0056b3;
+        }
+        #card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .card {
+            background-color: white;
+            border: 1px solid #dddfe2;
+            border-radius: 8px;
+            padding: 16px;
+            width: 250px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card h3 {
+            margin-top: 0;
+            font-size: 18px;
+            color: #333;
+        }
+        .card p {
+            font-size: 14px;
+            color: #606770;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Generador de Tarjetas "Renacer"</h1>
+    <button id="new-card-btn">Crear Nueva Tarjeta</button>
+
+    <div id="card-container">
+        <!-- Las tarjetas generadas aparecerán aquí -->
+    </div>
+
+    <script>
+        // URL de tu API de Flask. Asegúrate de que tu backend (app.py) esté corriendo.
+        const API_URL = 'http://127.0.0.1:5000';
+        let cardCounter = 0;
+
+        // Elementos del DOM
+        const newCardBtn = document.getElementById('new-card-btn');
+        const cardContainer = document.getElementById('card-container');
+
+        /**
+         * Añade una tarjeta al DOM.
+         * @param {object} item - El objeto de la tarjeta con id, name, description.
+         */
+        function addCardToDOM(item) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.dataset.id = item.id;
+
+            const cardTitle = document.createElement('h3');
+            cardTitle.textContent = item.name;
+
+            const cardDescription = document.createElement('p');
+            cardDescription.textContent = item.description || 'Sin descripción.';
+
+            card.appendChild(cardTitle);
+            card.appendChild(cardDescription);
+
+            // Añade la nueva tarjeta al principio del contenedor
+            cardContainer.prepend(card);
+        }
+
+        /**
+         * Carga las tarjetas iniciales desde el backend.
+         */
+        async function loadInitialCards() {
+            try {
+                const response = await fetch(`${API_URL}/items`);
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+                const data = await response.json();
+                cardContainer.innerHTML = ''; // Limpiar contenedor
+                if (data.items && data.items.length > 0) {
+                    cardCounter = data.items.length;
+                    data.items.forEach(addCardToDOM);
+                }
+            } catch (error) {
+                console.error('Error al cargar las tarjetas iniciales:', error);
+                cardContainer.innerHTML = '<p>No se pudieron cargar las tarjetas. Asegúrate de que el backend esté funcionando.</p>';
+            }
+        }
+
+        /**
+         * Crea una nueva tarjeta llamando al backend.
+         */
+        async function createNewCard() {
+            cardCounter++;
+            const newItem = {
+                name: `Tarjeta Renacida #${cardCounter}`,
+                description: `Esta es la descripción de la tarjeta número ${cardCounter}.`
+            };
+
+            try {
+                const response = await fetch(`${API_URL}/items`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(newItem),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+
+                const result = await response.json();
+                addCardToDOM(result.item); // Añade la nueva tarjeta al DOM
+
+            } catch (error) {
+                console.error('Error al crear la nueva tarjeta:', error);
+                alert('No se pudo crear la tarjeta. Revisa la consola para más detalles.');
+                cardCounter--; // Revertir el contador si falla
+            }
+        }
+
+        // --- Event Listeners ---
+
+        // Cargar tarjetas cuando la página esté lista
+        document.addEventListener('DOMContentLoaded', loadInitialCards);
+
+        // Crear una nueva tarjeta al hacer clic en el botón
+        newCardBtn.addEventListener('click', createNewCard);
+
+    </script>
+
+</body>
+</html>

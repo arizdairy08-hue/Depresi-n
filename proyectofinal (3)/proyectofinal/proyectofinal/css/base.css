@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+:root{
+  --brand:#2c7a7b; /* teal-ish */
+  --accent:#1f6f61;
+  --muted:#6c757d;
+}
+
+html,body{height:100%;}
+body{
+  font-family:'Poppins',system-ui,Segoe UI,Arial,Helvetica,sans-serif;
+  background:linear-gradient(180deg,#f8fafc,#ffffff);
+  color:#222;
+}
+
+/* Header brand */
+.navbar-brand{font-family:'Playfair Display',serif; font-size:1.05rem}
+
+/* Card */
+.login-card .card{border-radius:12px}
+
+/* Buttons */
+.btn-primary{background:var(--brand);border-color:var(--brand)}
+.btn-primary:hover{background:#235e5f}
+.btn-success{background:#2b8a44}
+
+/* Footer */
+footer{font-size:.9rem}
+
+/* Utility */
+.bg-gradient-leaf{background: linear-gradient(135deg, rgba(44,122,123,0.06), rgba(43,138,68,0.02));}
+
+/* Forms */
+.form-floating > .form-control:focus { box-shadow: none; }
+
+/* Responsive tweaks */
+@media (max-width:576px){
+  .login-card{padding:1rem}
+}

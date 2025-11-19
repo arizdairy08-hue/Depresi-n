@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tablero — Escuchar para Sanar</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .hero-card { border-radius:14px; overflow:hidden }
+    .hero-left { padding:2.25rem }
+    .hero-right { background:linear-gradient(180deg, rgba(44,122,123,0.06), rgba(43,138,68,0.06)); display:flex; align-items:center; justify-content:center }
+    .feature-card { border-radius:12px }
+    .greeting { font-size:1.25rem }
+    @media (max-width:768px){ .hero-left, .hero-right{padding:1.25rem} }
+  </style>
+</head>
+<body data-protect="true" class="bg-gradient-leaf">
+
+  <div data-component="navbar"></div>
+
+  <main class="container py-5">
+    <div class="row align-items-center mb-4">
+      <div class="col-12">
+        <div class="card shadow-sm hero-card">
+          <div class="row g-0">
+            <div class="col-md-7 hero-left">
+              <h2 class="fw-bold">Bienvenido/a, <span id="userNamePlaceholder" class="text-primary"></span></h2>
+              <p class="text-muted mb-3">Gracias por estar aquí. En este espacio encontrarás ejercicios, audios y guías para acompañar tu bienestar emocional.</p>
+              <div class="d-flex gap-2 flex-wrap">
+                <a id="goEscuchate" class="btn btn-primary btn-lg" href="escuchate.html"><i class="fas fa-headphones me-2"></i>Escúchate</a>
+                <a id="goRespira" class="btn btn-outline-info btn-lg" href="respira.html"><i class="fas fa-lungs me-2"></i>Respira</a>
+                <a id="goAudios" class="btn btn-outline-secondary btn-lg" href="audios.html"><i class="fas fa-music me-2"></i>Audios</a>
+              </div>
+            </div>
+            <div class="col-md-5 hero-right text-center p-4">
+              <div>
+                <i class="fas fa-leaf fa-4x text-primary mb-3"></i>
+                <p class="mb-0 text-muted">Un espacio seguro para tu proceso.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h4 class="mb-4 fw-bold">Tus Herramientas</h4>
+    <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <!-- Escúchate -->
+      <div class="col" data-aos="fade-up">
+        <a href="escuchate.html" class="text-decoration-none text-dark card-link">
+          <div class="card h-100 border-0 shadow-sm hover-lift card-verde">
+            <div class="card-body text-center p-4">
+              <div class="icon-circle mb-3 text-success"><i class="fas fa-ear-listen"></i></div>
+              <h5 class="card-title fw-bold">Escúchate</h5>
+              <p class="card-text small">Conecta con tus emociones y pensamientos.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <!-- Respira -->
+      <div class="col" data-aos="fade-up" data-aos-delay="100">
+        <a href="respira.html" class="text-decoration-none text-dark card-link">
+          <div class="card h-100 border-0 shadow-sm hover-lift card-marron">
+            <div class="card-body text-center p-4">
+              <div class="icon-circle mb-3 text-primary"><i class="fas fa-wind"></i></div>
+              <h5 class="card-title fw-bold">Respira</h5>
+              <p class="card-text small">Ejercicios para calmar la mente.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <!-- Abraza tu historia -->
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <a href="abraza.html" class="text-decoration-none text-dark card-link">
+          <div class="card h-100 border-0 shadow-sm hover-lift card-cafe">
+            <div class="card-body text-center p-4">
+              <div class="icon-circle mb-3 text-info"><i class="fas fa-book-heart"></i></div>
+              <h5 class="card-title fw-bold">Abraza tu historia</h5>
+              <p class="card-text small">Frases e imágenes que te inspiran.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <!-- Renace -->
+      <div class="col" data-aos="fade-up" data-aos-delay="300">
+        <a href="renace.html" class="text-decoration-none text-dark card-link">
+          <div class="card h-100 border-0 shadow-sm hover-lift card-beige">
+            <div class="card-body text-center p-4">
+              <div class="icon-circle mb-3 text-warning"><i class="fas fa-feather-alt"></i></div>
+              <h5 class="card-title fw-bold">Renace</h5>
+              <p class="card-text small">Recibe un mensaje positivo para tu día.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ once: true });
+    document.addEventListener('DOMContentLoaded', function(){
+      const name = sessionStorage.getItem('userName');
+      const placeholder = document.getElementById('userNamePlaceholder');
+      if (placeholder) {
+        placeholder.textContent = name ? name : 'amigo/a';
+      }
+    });
+  </script>
+
+  <div data-component="footer"></div>
+
+</body>
